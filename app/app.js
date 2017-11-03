@@ -1,46 +1,12 @@
-'use strict';
-
 var React = require('react');
-var ReactDom = require('react-dom');
 var debounce = require('lodash.debounce');
 var Markdown = require('react-markdown');
 
 var hasLocalStorage = supportsLocalStorage();
 var initialSource = getDefaultSource();
 
-var App = React.createClass({
-    onChange: function(e) {
-        this.setState({ source: e.target.value });
-        this.storeSource(e.target.value);
-    },
-
-    storeSource: hasLocalStorage ? debounce(function(src) {
-        localStorage.markdownSource = src || initialSource;
-    }, 250) : function() {},
-
-    render: function() {
-        return (
-            <div className="app">
-                <textarea
-                    className="editor"
-                    defaultValue={initialSource}
-                    onChange={this.onChange}
-                />
-
-                <Markdown
-                    className="preview"
-                    source={this.state ? this.state.source : initialSource}
-                    escapeHtml
-                />
-            </div>
-        );
-    }
-});
-
-ReactDom.render(
-    <App />,
-    document.getElementById('root')
-);
+import '../styles/pure.css';
+import '../styles/editor.css';
 
 function supportsLocalStorage() {
     var mod = 'test';
@@ -75,3 +41,34 @@ function getDefaultSource() {
         '* MIT-licensed'
     ].join('\n');
 }
+
+var App = React.createClass({
+    onChange: function(e) {
+        this.setState({ source: e.target.value });
+        this.storeSource(e.target.value);
+    },
+
+    storeSource: hasLocalStorage ? debounce(function(src) {
+        localStorage.markdownSource = src || initialSource;
+    }, 250) : function() {},
+
+    render: function() {
+        return (
+            <div className="app">
+                <textarea
+                    className="editor"
+                    defaultValue={initialSource}
+                    onChange={this.onChange}
+                />
+
+                <Markdown
+                    className="preview"
+                    source={this.state ? this.state.source : initialSource}
+                    escapeHtml
+                />
+            </div>
+        );
+    }
+});
+
+export default App;
