@@ -5,7 +5,6 @@ var Markdown = require('react-markdown');
 var hasLocalStorage = supportsLocalStorage();
 var initialSource = getDefaultSource();
 
-import '../styles/pure.css';
 import '../styles/editor.css';
 
 function supportsLocalStorage() {
@@ -54,7 +53,7 @@ var App = React.createClass({
 
     render: function() {
         return (
-            <div className="app">
+            <div className="editor-app">
                 <textarea
                     className="editor"
                     defaultValue={initialSource}
